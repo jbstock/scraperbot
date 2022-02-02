@@ -63,10 +63,10 @@ const formatForEmail = (data, numStories, urls) => {
   let heading = 0;
   data.map((story, i) => {
     if (i === 0 || i % numStories === 0) {
-      formatted += `<h2>${urls[heading]}</h2><br/>`;
+      formatted += `<h2>${urls[heading]}</h2>`;
       heading++;
     }
-    formatted += `<a href='${story[1]}'>${story[0]}</a><br/>`;
+    formatted += `<a href='${story[1]}'>${story[0]}</a><br/><br/>`;
   }, numStories);
   return formatted;
 };
@@ -96,13 +96,12 @@ const sendEmail = async (emailData) => {
   });
 };
 
-const numStories = 3;
+const numStories = 5;
 const baseURL = 'https://foxsports.com';
-const subURLs = ['nfl', 'mlb'];
+const subURLs = ['nfl', 'mlb', 'college-football', 'winter-olympics'];
 
 (async () => {
   const data = await scrape(numStories, baseURL, subURLs);
   const formatted = formatForEmail(data, numStories, subURLs);
-
   await sendEmail(formatted);
 })();
